@@ -20,7 +20,7 @@ public class MedicoService {
     }
 
     public Page<ListagemMedicoDTO> listar(Pageable pageable){
-        return repository.findAll(pageable).map(ListagemMedicoDTO::new);
+        return repository.findAllByAtivoTrue(pageable).map(ListagemMedicoDTO::new);
     }
 
     public void atualizar(AtualizaMedicoDTO novoMedico){
@@ -34,5 +34,10 @@ public class MedicoService {
         if(novoMedico.endereco() != null){
             medico.getEndereco().atualizarEndereco(novoMedico.endereco());
         }
+    }
+
+    public void deletar(Long id){
+        Medico medico = repository.getReferenceById(id);
+        medico.setAtivo(false);
     }
 }
