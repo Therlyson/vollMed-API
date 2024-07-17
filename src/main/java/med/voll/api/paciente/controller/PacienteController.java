@@ -35,4 +35,10 @@ public class PacienteController {
         pacienteService.atualizar(paciente);
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void desativarPaciente(@PathVariable Long id){
+        pacienteService.desativar(id);
+    }
+
 }

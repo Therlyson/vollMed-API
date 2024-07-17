@@ -25,16 +25,20 @@ public class PacienteService {
 
     public void atualizar(AtualizaPacienteDTO dados) {
         Paciente paciente = pacienteRepository.getReferenceById(dados.id());
-        System.out.println(paciente.getNome());
 
-        if(paciente.getNome() != null){
+        if(dados.nome() != null){
             paciente.setNome(dados.nome());
         }
-        if(paciente.getTelefone() != null){
+        if(dados.telefone() != null){
             paciente.setTelefone(dados.telefone());
         }
-        if(paciente.getEndereco() != null){
+        if(dados.endereco() != null){
             paciente.getEndereco().atualizarEndereco(dados.endereco());
         }
+    }
+
+    public void desativar(Long id){
+        Paciente paciente = pacienteRepository.getReferenceById(id);
+        paciente.setAtivo(false);
     }
 }
