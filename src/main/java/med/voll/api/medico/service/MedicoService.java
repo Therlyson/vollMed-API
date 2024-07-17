@@ -1,10 +1,10 @@
-package med.voll.api.service;
+package med.voll.api.medico.service;
 
-import med.voll.api.DTO.AtualizaMedicoDTO;
-import med.voll.api.DTO.DadosMedicoDTO;
-import med.voll.api.DTO.ListagemMedicoDTO;
-import med.voll.api.model.Medico;
-import med.voll.api.repository.MedicoRepository;
+import med.voll.api.medico.DTO.AtualizaMedicoDTO;
+import med.voll.api.medico.DTO.DadosMedicoDTO;
+import med.voll.api.medico.DTO.ListagemMedicoDTO;
+import med.voll.api.medico.model.Medico;
+import med.voll.api.medico.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
