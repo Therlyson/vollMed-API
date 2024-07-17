@@ -1,6 +1,7 @@
 package med.voll.api.paciente.controller;
 
 import jakarta.validation.Valid;
+import med.voll.api.paciente.DTO.AtualizaPacienteDTO;
 import med.voll.api.paciente.DTO.DadosPacienteDTO;
 import med.voll.api.paciente.DTO.ListagemPacienteDTO;
 import med.voll.api.paciente.service.PacienteService;
@@ -26,6 +27,12 @@ public class PacienteController {
     @GetMapping
     public Page<ListagemPacienteDTO> listarPacientes(@PageableDefault(size = 10, sort = {"nome"}) Pageable pageable){
         return pacienteService.listar(pageable);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizarPaciente(@RequestBody @Valid AtualizaPacienteDTO paciente){
+        pacienteService.atualizar(paciente);
     }
 
 }

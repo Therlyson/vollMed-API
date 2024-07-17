@@ -1,5 +1,6 @@
 package med.voll.api.paciente.service;
 
+import med.voll.api.paciente.DTO.AtualizaPacienteDTO;
 import med.voll.api.paciente.DTO.DadosPacienteDTO;
 import med.voll.api.paciente.DTO.ListagemPacienteDTO;
 import med.voll.api.paciente.model.Paciente;
@@ -20,5 +21,20 @@ public class PacienteService {
 
     public Page<ListagemPacienteDTO> listar(Pageable pageable){
         return pacienteRepository.findAllByAtivoTrue(pageable);
+    }
+
+    public void atualizar(AtualizaPacienteDTO dados) {
+        Paciente paciente = pacienteRepository.getReferenceById(dados.id());
+        System.out.println(paciente.getNome());
+
+        if(paciente.getNome() != null){
+            paciente.setNome(dados.nome());
+        }
+        if(paciente.getTelefone() != null){
+            paciente.setTelefone(dados.telefone());
+        }
+        if(paciente.getEndereco() != null){
+            paciente.getEndereco().atualizarEndereco(dados.endereco());
+        }
     }
 }
