@@ -15,15 +15,17 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    public void cadastrar(DadosPacienteDTO paciente){
-        pacienteRepository.save(new Paciente(paciente));
+    public Paciente cadastrar(DadosPacienteDTO paciente){
+        Paciente pacienteCdastro = new Paciente(paciente);
+        pacienteRepository.save(pacienteCdastro);
+        return pacienteCdastro;
     }
 
     public Page<ListagemPacienteDTO> listar(Pageable pageable){
         return pacienteRepository.findAllByAtivoTrue(pageable);
     }
 
-    public void atualizar(AtualizaPacienteDTO dados) {
+    public Paciente atualizar(AtualizaPacienteDTO dados) {
         Paciente paciente = pacienteRepository.getReferenceById(dados.id());
 
         if(dados.nome() != null){
@@ -35,10 +37,15 @@ public class PacienteService {
         if(dados.endereco() != null){
             paciente.getEndereco().atualizarEndereco(dados.endereco());
         }
+        return paciente;
     }
 
     public void desativar(Long id){
         Paciente paciente = pacienteRepository.getReferenceById(id);
         paciente.setAtivo(false);
+    }
+
+    public Paciente buscarPorId(Long id) {
+        return pacienteRepository.getReferenceById(id);
     }
 }

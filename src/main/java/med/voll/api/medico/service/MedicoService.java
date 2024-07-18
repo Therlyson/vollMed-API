@@ -15,15 +15,17 @@ public class MedicoService {
     @Autowired
     private MedicoRepository repository;
 
-    public void cadastrar(DadosMedicoDTO dados){
-        repository.save(new Medico(dados));
+    public Medico cadastrar(DadosMedicoDTO dados){
+        Medico medico = new Medico(dados);
+        repository.save(medico);
+        return medico;
     }
 
     public Page<ListagemMedicoDTO> listar(Pageable pageable){
         return repository.findAllByAtivoTrue(pageable).map(ListagemMedicoDTO::new);
     }
 
-    public void atualizar(AtualizaMedicoDTO novoMedico){
+    public Medico atualizar(AtualizaMedicoDTO novoMedico){
         Medico medico = repository.getReferenceById(novoMedico.id());
         if (novoMedico.nome() != null) {
             medico.setNome(novoMedico.nome());
@@ -34,10 +36,15 @@ public class MedicoService {
         if(novoMedico.endereco() != null){
             medico.getEndereco().atualizarEndereco(novoMedico.endereco());
         }
+        return medico;
     }
 
     public void deletar(Long id){
         Medico medico = repository.getReferenceById(id);
         medico.setAtivo(false);
+    }
+
+    public Medico buscarPorId(Long id) {
+        return repository.getReferenceById(id);
     }
 }
