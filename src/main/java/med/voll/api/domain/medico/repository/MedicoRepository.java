@@ -1,6 +1,5 @@
 package med.voll.api.domain.medico.repository;
 
-import med.voll.api.domain.consulta.model.Consulta;
 import med.voll.api.domain.medico.model.Especialidade;
 import med.voll.api.domain.medico.model.Medico;
 import org.springframework.data.domain.Page;
@@ -29,7 +28,4 @@ public interface MedicoRepository extends JpaRepository<Medico, Long>{
             limit 1
             """)
     Medico findBySpecialtyRandomDoctorFreeOnDate(Especialidade especialidade, LocalDateTime data);
-
-    @Query("select c from Consulta c where c.medico.id = :medicoId and c.data = :data")
-    List<Consulta> findByMedicoIdAndData(Long medicoId, LocalDateTime data);
 }

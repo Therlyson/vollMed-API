@@ -24,7 +24,6 @@ public class ConsultaController {
     @Transactional
     public ResponseEntity agendarConsulta(@RequestBody @Valid DadosAgendamentoDTO dadosConsulta){
         Consulta consulta = consultaService.agendar(dadosConsulta);
-        return ResponseEntity.ok(new DadosDetalhamentoConsultaDTO(consulta.getId(),consulta.getPaciente().getId()
-                ,consulta.getMedico().getId(),consulta.getData()));
+        return ResponseEntity.ok(new DadosDetalhamentoConsultaDTO(consulta));
     }
 }
