@@ -11,6 +11,8 @@ import med.voll.api.domain.paciente.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,7 +41,7 @@ public class ConsultaService {
             throw new ValidacaoException("Não foi possível encontrar um médico disponível para a data informada");
         }
         var paciente = pacienteRepository.getReferenceById(dados.pacienteId());
-        var consulta = new Consulta(null, paciente, medico, dados.data());
+        var consulta = new Consulta(null, paciente, medico, dados.data(), true);
         return consultaRepository.save(consulta);
     }
 
@@ -53,6 +55,15 @@ public class ConsultaService {
             throw new ValidacaoException("Especialidade é obrigatória quando não se informa o médico!");
         }
         return medicoRepository.findBySpecialtyRandomDoctorFreeOnDate(dados.especialidade(), dados.data());
+    }
+
+    public void deletar(Long id){
+        Consulta consulta = consultaRepository.getReferenceById(id);
+        boolean diferencaMinima24Horas = Duration.between(LocalDateTime.now(), consulta.getData()).toHours() < 24;
+        if(diferencaMinima24Horas){
+            throw new ValidacaoException("Não é possível cancelar uma consulta com menos de 24 horas de antecedência");
+        }
+        consulta.setAtivo(false);
     }
 }
 ;

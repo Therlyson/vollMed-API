@@ -25,4 +25,5 @@ public class Consulta {
     @JoinColumn(name = "medico_id")
     private Medico medico;
     private LocalDateTime data;
+    private boolean ativo;
 }

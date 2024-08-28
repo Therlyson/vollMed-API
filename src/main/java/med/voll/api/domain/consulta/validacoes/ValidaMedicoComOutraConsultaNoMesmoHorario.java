@@ -12,7 +12,7 @@ public class ValidaMedicoComOutraConsultaNoMesmoHorario implements ValidadorAgen
     private ConsultaRepository consultaRepository;
 
     public void validar(DadosAgendamentoDTO dados){
-        Boolean medicoPossuiConsultaNoHorario = consultaRepository.existsByMedicoIdAndData(dados.medicoId(), dados.data());
+        Boolean medicoPossuiConsultaNoHorario = consultaRepository.existsByMedicoIdAndDataAndAtivoTrue(dados.medicoId(), dados.data());
         if(medicoPossuiConsultaNoHorario){
             throw new ValidacaoException("Médico já possui consulta agendada para a data informada");
         }

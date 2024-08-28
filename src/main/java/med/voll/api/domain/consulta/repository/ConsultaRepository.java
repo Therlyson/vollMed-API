@@ -11,7 +11,7 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long>{
     @Query("select c from Consulta c where c.medico.id = :medicoId and c.data = :data")
     List<Consulta> findByMedicoIdAndData(Long medicoId, LocalDateTime data);
 
-    Boolean existsByMedicoIdAndData(Long medicoId, LocalDateTime data);
+    Boolean existsByMedicoIdAndDataAndAtivoTrue(Long medicoId, LocalDateTime data);
 
-    Boolean existsByPacienteIdAndDataBetween(Long pacienteId, LocalDateTime primeiraData, LocalDateTime segundaData);
+    Boolean existsByPacienteIdAndDataBetweenAndAtivoTrue(Long pacienteId, LocalDateTime primeiraData, LocalDateTime segundaData);
 }

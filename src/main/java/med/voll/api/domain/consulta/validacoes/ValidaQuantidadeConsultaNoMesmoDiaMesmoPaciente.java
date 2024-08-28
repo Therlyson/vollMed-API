@@ -14,7 +14,7 @@ public class ValidaQuantidadeConsultaNoMesmoDiaMesmoPaciente implements Validado
     public void validar(DadosAgendamentoDTO dados){
         var primeiroHorario = dados.data().withHour(7);
         var ultimoHorario = dados.data().withHour(18);
-        var pacientePossuiOutraConsulta = consultaRepository.existsByPacienteIdAndDataBetween(dados.pacienteId(), primeiroHorario, ultimoHorario);
+        var pacientePossuiOutraConsulta = consultaRepository.existsByPacienteIdAndDataBetweenAndAtivoTrue(dados.pacienteId(), primeiroHorario, ultimoHorario);
         if(pacientePossuiOutraConsulta){
             throw new ValidacaoException("Erro! Paciente já possui consulta nesse dia");
         }
