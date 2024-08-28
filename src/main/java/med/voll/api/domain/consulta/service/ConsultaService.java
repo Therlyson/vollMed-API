@@ -2,6 +2,7 @@ package med.voll.api.domain.consulta.service;
 
 import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.DTO.DadosAgendamentoDTO;
+import med.voll.api.domain.consulta.DTO.DadosDetalhamentoConsultaDTO;
 import med.voll.api.domain.consulta.model.Consulta;
 import med.voll.api.domain.consulta.repository.ConsultaRepository;
 import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoConsulta;
@@ -9,6 +10,8 @@ import med.voll.api.domain.medico.model.Medico;
 import med.voll.api.domain.medico.repository.MedicoRepository;
 import med.voll.api.domain.paciente.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -64,6 +67,10 @@ public class ConsultaService {
             throw new ValidacaoException("Não é possível cancelar uma consulta com menos de 24 horas de antecedência");
         }
         consulta.setAtivo(false);
+    }
+
+    public Page<DadosDetalhamentoConsultaDTO> listar(Pageable pageable){
+        return consultaRepository.findAllByAtivoTrue(pageable);
     }
 }
 ;

@@ -1,6 +1,9 @@
 package med.voll.api.domain.consulta.repository;
 
+import med.voll.api.domain.consulta.DTO.DadosDetalhamentoConsultaDTO;
 import med.voll.api.domain.consulta.model.Consulta;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,4 +17,6 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long>{
     Boolean existsByMedicoIdAndDataAndAtivoTrue(Long medicoId, LocalDateTime data);
 
     Boolean existsByPacienteIdAndDataBetweenAndAtivoTrue(Long pacienteId, LocalDateTime primeiraData, LocalDateTime segundaData);
+
+    Page<DadosDetalhamentoConsultaDTO> findAllByAtivoTrue(Pageable pageable);
 }
